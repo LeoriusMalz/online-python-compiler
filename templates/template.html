@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Python Compiler</title>
+	<link rel="icon" type="image/png" href="https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/theme/monokai.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/theme/ayu-dark.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/addon/hint/show-hint.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/addon/dialog/dialog.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/addon/lint/lint.min.css">
+
+    <style>
+    	body {
+    		font-family: Bahnschrift;
+    		color: #999999;
+    		margin: 1em;
+    		background-color: #121212;
+    	}
+
+    	#theme-selector {
+    		position: absolute;
+    		font-family: inherit;
+    		border: none;
+    		border-radius: 15px;
+    		width: 150px;
+    		height: 40px;
+    		font-size: 20px;
+    		margin: 5px;
+    		right: 10px;
+    		top: 10px;
+    		text-align: center;
+    		padding: 10;
+    		background-color: #101010;
+    		color: #ffffff;
+    	}
+
+		#theme-selector::-ms-expand {
+		    border-radius: 10px;
+		    background: #7cbc0a;
+		    color: #fff;
+		}
+
+        #resize-handle {
+            position: absolute;
+            bottom: -9px;
+            right: 35%;
+            width: 30%;
+            height: 3px;
+            background-color: #fff;
+            cursor: s-resize;
+            z-index: 1000;
+        }
+
+        .editor-container {
+            position: absolute;
+            left: 10px;
+            width: 50%;
+            height: 600px;
+            margin: 10px auto;
+        }
+
+        .output-container {
+            position: absolute;
+            right: 0px;
+            width: 48%;
+            height: 400px;
+            margin: 0px auto;
+        }
+
+        .CodeMirror {
+        	position: relative;
+        	height: 100%;
+        	width: 100%;
+            font-family: Courier New, monospace;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+		}
+
+		#run-button {
+			width: 120px;
+			height: 40px;
+			background: #0e1824;
+			border: 0px solid #ffffff;
+    		border-radius: 10px;
+    		font-family: inherit;
+    		font-size: 20px;
+    		margin: 10px;
+    		color: inherit;
+		}
+
+		#run-button:hover {
+			background: #1d314a;
+			border: 2px solid #ffffff;
+		}
+
+		#output {
+			margin: 10px;
+			width: 90%;
+			height: 50px;
+			border-radius: 10px;
+			background-color: #333;
+			padding: 10px;
+			font-family: Courier New, monospace;
+		}
+    </style>
+</head>
+
+<body>
+	<div>
+		<h1><img src="https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png" height=32 width=32 alt="python">
+			Python Local Compiler
+	
+		<span><select id="theme-selector" onchange="changeTheme()">
+			<option value="default">Default</option>
+			<option value="monokai">Monokai</option>
+			<option value="solarized">Solarized</option>
+			<option selected value="ayu-dark">AyuDark</option>
+		</select></span></h1>
+	</div>
+
+	<div class="editor-container">
+        <textarea placeholder="# input code here" id="editor"></textarea>
+        <div id="resize-handle"></div>
+	</div>
+
+	<div class="output-container">
+		<button id="run-button" onclick="runCode()">Run Code</button>
+		<h2 style="margin: 10px;">Output:</h2>
+		<div id="output"></div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/addon/comment/comment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/addon/search/search.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/addon/search/searchcursor.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/addon/dialog/dialog.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/addon/hint/python-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/addon/lint/lint.min.js"></script>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
